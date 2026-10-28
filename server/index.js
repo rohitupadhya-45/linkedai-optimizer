@@ -387,7 +387,7 @@ app.get('/api/auth/linkedin', (req, res) => {
     return res.status(500).send('LinkedIn Client ID is missing in .env configuration.');
   }
 
-  const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'http://localhost:5000/api/auth/linkedin/callback';
+  const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'https://linkedai-optimizer.onrender.com/api/auth/linkedin/callback';
   const state = `state_${Math.random().toString(36).substring(2, 12)}`;
   // Request OpenID user profile scopes + member social sharing scope
   const scope = 'openid profile email w_member_social';
@@ -414,7 +414,7 @@ app.get('/api/auth/linkedin/callback', async (req, res) => {
   }
 
   try {
-    const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'http://localhost:5000/api/auth/linkedin/callback';
+    const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'https://linkedai-optimizer.onrender.com/api/auth/linkedin/callback';
 
     // 1. Exchange authorization code for access token
     const tokenResponse = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
@@ -598,8 +598,12 @@ app.use((req, res, next) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
-  res.sendFile(path.join(distPath, 'index.html'), (err) => {
-    if (err) next();
+  const indexPath = path.join(distPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Failed to send index.html from:', indexPath, err);
+      res.status(404).send('Application build in progress or dist/index.html not found. Please ensure "npm run build" ran successfully.');
+    }
   });
 });
 
