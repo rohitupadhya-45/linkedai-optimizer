@@ -62,12 +62,12 @@ npm install
 Copy `.env.example` to `.env` and fill in your keys:
 ```env
 PORT=5000
-FRONTEND_URL=http://localhost:5173
+FRONTEND_URL=http:https://linkedai-optimizer.onrender.com
 OPENROUTER_API_KEY=sk-or-v1-...
 AI_MODEL=openai/gpt-4o-mini
 LINKEDIN_CLIENT_ID=your_client_id
 LINKEDIN_CLIENT_SECRET=your_client_secret
-LINKEDIN_REDIRECT_URI=http://localhost:5000/api/auth/linkedin/callback
+LINKEDIN_REDIRECT_URI=http:https://linkedai-optimizer.onrender.com/api/auth/linkedin/callback
 ```
 
 ### 3. Run the Development Servers
@@ -81,7 +81,7 @@ npm run server
 npm run dev
 ```
 
-Visit `http://localhost:5173` to start creating!
+Visit `https://linkedai-optimizer.onrender.com` to start creating!
 
 ---
 
