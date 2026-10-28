@@ -55,7 +55,7 @@ const aiClient = hasValidKey
       ...(aiProvider === 'OpenRouter'
         ? {
             defaultHeaders: {
-              'HTTP-Referer': process.env.FRONTEND_URL || 'http://localhost:5173',
+              'HTTP-Referer': process.env.FRONTEND_URL || 'https://linkedai-optimizer.onrender.com',
               'X-Title': 'LinkedAI Optimizer'
             }
           }
@@ -402,7 +402,7 @@ app.get('/api/auth/linkedin', (req, res) => {
  */
 app.get('/api/auth/linkedin/callback', async (req, res) => {
   const { code, error, error_description } = req.query;
-  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+  const frontendUrl = process.env.FRONTEND_URL || 'https://linkedai-optimizer.onrender.com';
 
   if (error) {
     console.error('LinkedIn OAuth rejected/error:', error, error_description);
