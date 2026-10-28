@@ -55,7 +55,7 @@ const aiClient = hasValidKey
       ...(aiProvider === 'OpenRouter'
         ? {
             defaultHeaders: {
-              'HTTP-Referer': process.env.FRONTEND_URL || 'https://linkedai-optimizer.onrender.com',
+              'HTTP-Referer': process.env.FRONTEND_URL || 'http://localhost:5173',
               'X-Title': 'LinkedAI Optimizer'
             }
           }
@@ -387,7 +387,7 @@ app.get('/api/auth/linkedin', (req, res) => {
     return res.status(500).send('LinkedIn Client ID is missing in .env configuration.');
   }
 
-  const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'https://linkedai-optimizer.onrender.com/api/auth/linkedin/callback';
+  const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'http://localhost:5000/api/auth/linkedin/callback';
   const state = `state_${Math.random().toString(36).substring(2, 12)}`;
   // Request OpenID user profile scopes + member social sharing scope
   const scope = 'openid profile email w_member_social';
@@ -402,7 +402,7 @@ app.get('/api/auth/linkedin', (req, res) => {
  */
 app.get('/api/auth/linkedin/callback', async (req, res) => {
   const { code, error, error_description } = req.query;
-  const frontendUrl = process.env.FRONTEND_URL || 'https://linkedai-optimizer.onrender.com';
+  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
 
   if (error) {
     console.error('LinkedIn OAuth rejected/error:', error, error_description);
@@ -414,7 +414,7 @@ app.get('/api/auth/linkedin/callback', async (req, res) => {
   }
 
   try {
-    const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'https://linkedai-optimizer.onrender.com/api/auth/linkedin/callback';
+    const redirectUri = process.env.LINKEDIN_REDIRECT_URI || 'http://localhost:5000/api/auth/linkedin/callback';
 
     // 1. Exchange authorization code for access token
     const tokenResponse = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
