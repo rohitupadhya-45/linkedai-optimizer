@@ -1,15 +1,16 @@
 services:
   - type: web
     name: linkedai-optimizer
-    env: node
+    runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
+    healthCheckPath: /api/status
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
+      - key: OPENAI_API_KEY
+        sync: false
       - key: OPENROUTER_API_KEY
         sync: false
       - key: AI_MODEL
@@ -19,4 +20,6 @@ services:
       - key: LINKEDIN_CLIENT_SECRET
         sync: false
       - key: LINKEDIN_REDIRECT_URI
+        sync: false
+      - key: FRONTEND_URL
         sync: false

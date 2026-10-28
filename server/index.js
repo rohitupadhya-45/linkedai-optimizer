@@ -604,9 +604,9 @@ app.use((req, res, next) => {
 });
 
 // Start listening
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`=================================================`);
-  console.log(` LinkedAI backend running on http://localhost:${PORT}`);
+  console.log(` LinkedAI backend running on http://0.0.0.0:${PORT}`);
   console.log(` AI Engine:      ${aiProvider} (${hasValidKey ? 'Active ✅' : 'Missing (Local fallback active)'})`);
   if (hasValidKey) {
     console.log(` Active Model:   ${defaultModel}`);
